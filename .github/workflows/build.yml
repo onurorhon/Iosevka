@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -15,13 +16,13 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build WOFF2 only
-        run: npm run build -- woff2-unhinted::iosevka-my-mono
+      - name: Build WOFF2-only (fast)
+        run: npm run build -- woff2-unhinted::iosevka-my-mono --jCmd 4
 
       - name: Upload fonts
         uses: actions/upload-artifact@v4
         with:
           name: iosevka-my-mono
-          path: dist/iosevka-my-mono/
+          path: dist/iosevka-my-mono/woff2/
